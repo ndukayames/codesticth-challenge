@@ -21,6 +21,8 @@ model User {
   updatedAt DateTime   @updatedAt
   CartItem  CartItem[]
   Order     Order[]
+
+  @@map("users")
 }
 
 // Product model represents the products available in the e-commerce platform.
@@ -32,6 +34,8 @@ model Product {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   CartItem  CartItem[]
+
+  @@map("products")
 }
 
 // CartItem model represents the items in the user's shopping cart.
@@ -48,6 +52,8 @@ model CartItem {
   productId Int
   Order     Order?  @relation(fields: [orderId], references: [id])
   orderId   Int?
+
+  @@map("cart_items")
 }
 
 // Order model represents the completed orders by users.
@@ -63,4 +69,6 @@ model Order {
   user       User       @relation(fields: [userId], references: [id])
   userId     Int
   orderItems CartItem[]
+
+  @@map("orders")
 }
