@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -35,7 +36,7 @@ model Product {
   id        Int        @id @default(autoincrement())
   name      String
   price     Float
-  image     String
+  image     String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   CartItem  CartItem[]
@@ -51,11 +52,11 @@ model CartItem {
   updatedAt DateTime @updatedAt
 
   // Relations
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
-  Order     Order?  @relation(fields: [orderId], references: [id])
+  Order     Order?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   Int?
 
   @@map("cart_items")

@@ -23,6 +23,8 @@ export class GlobalExceptionHandler implements ExceptionFilter {
       path: ctx.getRequest().url,
     };
 
+    console.log(exception);
+
     response.status(status).json(errorResponse);
   }
 }

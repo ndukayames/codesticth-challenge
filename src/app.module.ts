@@ -5,6 +5,9 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaService } from './shared/repository/prisma/prisma.service';
 import { PrismaModule } from './shared/repository/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { ProductsModule } from './products/products.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
+import { JwtStrategy } from './shared/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -14,8 +17,10 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       cache: true,
     }),
+    ProductsModule,
+    FileUploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, JwtStrategy],
 })
 export class AppModule {}
