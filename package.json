@@ -23,15 +23,18 @@
     "@nestjs/common": "^10.1.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.1.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.1.0",
     "@prisma/client": "^5.0.0",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1",
-    "@nestjs/mapped-types": "*",
     "@types/multer": "^1.4.7",
-    "nodemailer": "^6.9.3",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0"
+    "class-validator": "^0.14.0",
+    "nodemailer": "^6.9.3",
+    "reflect-metadata": "^0.1.13",
+    "@nestjs/jwt": "^10.1.0",
+    "@nestjs/passport": "^10.0.0",
+    "passport-jwt": "^4.0.1",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.1.9",
