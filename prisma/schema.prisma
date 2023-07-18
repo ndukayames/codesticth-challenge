@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// schema.prisma
+
+// User model represents the users of the e-commerce platform.
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  CartItem  CartItem[]
+  Order     Order[]
+}
+
+// Product model represents the products available in the e-commerce platform.
+model Product {
+  id        Int        @id @default(autoincrement())
+  name      String
+  price     Float
+  image     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  CartItem  CartItem[]
+}
+
+// CartItem model represents the items in the user's shopping cart.
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  Order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   Int?
+}
+
+// Order model represents the completed orders by users.
+model Order {
+  id           Int      @id @default(autoincrement())
+  totalAmount  Float
+  shippingInfo String
+  paymentInfo  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  user       User       @relation(fields: [userId], references: [id])
+  userId     Int
+  orderItems CartItem[]
+}
