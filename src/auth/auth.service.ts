@@ -20,7 +20,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async signup(dto: CreateUserDto) {
+  async userSignup(dto: CreateUserDto) {
     try {
       const userInput: Prisma.UserCreateInput = {
         password: await argon.hash(dto.password),
@@ -43,9 +43,7 @@ export class AuthService {
     }
   }
 
-  async signin(dto: SigninDto): Promise<{
-    access_token: string;
-  }> {
+  async userSignin(dto: SigninDto) {
     // find user
     const findParam: Prisma.UserWhereUniqueInput = {
       username: dto.username,
@@ -71,13 +69,65 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async generateToken(user: User): Promise<{ access_token: string }> {
+  async adminSignup(dto: CreateUserDto) {
+    try {
+      const userInput: Prisma.UserCreateInput = {
+        password: await argon.hash(dto.password),
+        username: dto.username,
+        type: 'STORE_OWNER',
+      };
+      const user = await this.prisma.user.create({
+        data: userInput,
+      });
+
+      delete user.password;
+      return this.generateToken(user);
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException(
+            'User with this username already exists',
+          );
+        }
+      }
+    }
+  }
+
+  async adminSignin(dto: SigninDto) {
+    // find user
+    const findParam: Prisma.UserWhereUniqueInput = {
+      username: dto.username,
+      type: 'STORE_OWNER',
+    };
+
+    const user = await this.prisma.user.findUnique({
+      where: findParam,
+    });
+
+    // check if user is found
+    if (!user) {
+      throw new UnauthorizedException(
+        "Username doesn't belong to any account.",
+      );
+    }
+
+    // compare password
+    const isPasswordMatch = await argon.verify(user.password, dto.password);
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('Wrong password');
+    }
+
+    return this.generateToken(user);
+  }
+
+  async generateToken(user: User) {
     const payload = {
       sub: user.id,
+      userType: user.type,
     };
 
     const token = await this.jwt.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '150m',
       secret: this.config.get('JWT_SECRET'),
     });
 

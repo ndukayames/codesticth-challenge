@@ -7,14 +7,25 @@ import { SigninDto } from './dto/signin.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signup')
-  async signup(@Body() dto: CreateUserDto) {
-    return this.authService.signup(dto);
+  @Post('users/signup')
+  async userSignup(@Body() dto: CreateUserDto) {
+    return this.authService.userSignup(dto);
   }
 
-  @Post('signin')
+  @Post('users/signin')
   @HttpCode(200)
-  async signinn(@Body() dto: SigninDto) {
-    return this.authService.signin(dto);
+  async userSignin(@Body() dto: SigninDto) {
+    return this.authService.userSignin(dto);
+  }
+
+  @Post('admins/signup')
+  async adminSignup(@Body() dto: CreateUserDto) {
+    return this.authService.adminSignup(dto);
+  }
+
+  @Post('admins/signin')
+  @HttpCode(200)
+  async adminSignin(@Body() dto: SigninDto) {
+    return this.authService.adminSignin(dto);
   }
 }
