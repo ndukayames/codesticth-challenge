@@ -10,6 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserType {
+  USER
+  STORE_OWNER
+}
 // schema.prisma
 
 // User model represents the users of the e-commerce platform.
@@ -17,6 +21,7 @@ model User {
   id        Int        @id @default(autoincrement())
   username  String     @unique
   password  String
+  type      UserType  @default(USER)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   CartItem  CartItem[]
