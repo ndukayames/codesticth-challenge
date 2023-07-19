@@ -14,8 +14,10 @@ import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { GetUser } from 'src/shared/decorators/get-user.decorator';
 import { UserJwtAuthGuard } from 'src/shared/guards/user-jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('carts')
+@ApiTags('Carts')
 @UseGuards(UserJwtAuthGuard)
 export class CartController {
   constructor(private readonly cartService: CartService) {}

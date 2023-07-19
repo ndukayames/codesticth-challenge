@@ -18,8 +18,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AddProductDto } from './dto/add-new-product.dto';
 import { AdminJwtAuthGuard } from 'src/shared/guards/admin-jwt-auth.guard';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('products')
+@ApiTags('Products')
 @UseGuards(AdminJwtAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

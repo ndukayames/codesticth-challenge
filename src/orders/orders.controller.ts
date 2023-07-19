@@ -15,8 +15,10 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { GetUser } from 'src/shared/decorators/get-user.decorator';
 import {} from 'src/shared/guards/admin-jwt-auth.guard';
 import { UserJwtAuthGuard } from 'src/shared/guards/user-jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('orders')
+@ApiTags('Orders')
 @UseGuards(UserJwtAuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
