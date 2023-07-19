@@ -15,8 +15,9 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { GetUser } from 'src/shared/decorators/get-user.decorator';
 import {} from 'src/shared/guards/admin-jwt-auth.guard';
 import { UserJwtAuthGuard } from 'src/shared/guards/user-jwt-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('orders')
 @ApiTags('Orders')
 @UseGuards(UserJwtAuthGuard)

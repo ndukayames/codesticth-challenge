@@ -31,6 +31,7 @@ browse products, add them to a shopping cart, and complete the checkout process.
     )
     .setVersion('1.0')
     .addTag('API')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
