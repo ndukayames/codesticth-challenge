@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PrismaService } from './shared/repository/prisma/prisma.service';
@@ -25,7 +24,6 @@ import { AdminJwtStrategy } from './shared/strategies/admin-jwt.strategy';
     CartModule,
     OrdersModule,
   ],
-  controllers: [AppController],
   providers: [AppService, PrismaService, UserJwtStrategy, AdminJwtStrategy],
 })
 export class AppModule {}
