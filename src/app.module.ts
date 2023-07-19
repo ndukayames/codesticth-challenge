@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ProductsModule } from './products/products.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { JwtStrategy } from './shared/strategies/jwt.strategy';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JwtStrategy } from './shared/strategies/jwt.strategy';
     }),
     ProductsModule,
     FileUploadModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, JwtStrategy],
