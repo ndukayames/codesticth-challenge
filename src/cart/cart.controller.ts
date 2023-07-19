@@ -12,11 +12,11 @@ import {
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard';
 import { GetUser } from 'src/shared/decorators/get-user.decorator';
+import { UserJwtAuthGuard } from 'src/shared/guards/user-jwt-auth.guard';
 
 @Controller('carts')
-@UseGuards(JwtAuthGuard)
+@UseGuards(UserJwtAuthGuard)
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 

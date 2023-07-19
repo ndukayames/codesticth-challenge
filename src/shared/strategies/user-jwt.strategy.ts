@@ -5,7 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { PrismaService } from '../repository/prisma/prisma.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class UserJwtStrategy extends PassportStrategy(Strategy, 'userJwt') {
   constructor(
     private configService: ConfigService,
     private prisma: PrismaService,
@@ -21,6 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const user = this.prisma.user.findUnique({
       where: {
         id: payload.sub,
+        type: 'USER',
       },
     });
 

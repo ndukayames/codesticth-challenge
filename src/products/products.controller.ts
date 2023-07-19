@@ -16,11 +16,11 @@ import { ProductsService } from './products.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AddProductDto } from './dto/add-new-product.dto';
-import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard';
+import { AdminJwtAuthGuard } from 'src/shared/guards/admin-jwt-auth.guard';
 import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
-@UseGuards(JwtAuthGuard)
+@UseGuards(AdminJwtAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
